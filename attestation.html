@@ -23,6 +23,11 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 async function load() {
   const params = new URLSearchParams(window.location.search);
   const numero = params.get('n');
+  const params = new URLSearchParams(window.location.search);
+const numero = params.get('n');
+console.log('numero:', numero);
+console.log('full URL:', window.location.href);
+if (!numero) { showError('Numéro manquant'); return; }
   if (!numero) { showError('Numéro de contrat manquant'); return; }
 
   const res = await fetch(`${SUPABASE_URL}/rest/v1/contrats?numero=eq.${encodeURIComponent(numero)}&select=*,compagnies:compagnie_id(nom,code,telephone,email),offres:offre_id(libelle,type_couverture),vehicules:vehicule_id(marque,modele,immatriculation,annee,type_vehicule,numero_chassis)`, {
