@@ -1,257 +1,173 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attestation SOURINI</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #ECEFF1; color: #212121; font-size: 14px; }
-    #loading { display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; gap: 16px; }
-    #loading p { color: #888; font-size: 13px; }
-    .spinner { width: 40px; height: 40px; border: 3px solid #ddd; border-top-color: #0A5C30; border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .header { background: #0A5C30; color: white; padding: 0; }
-    .header-top { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid rgba(255,255,255,0.15); }
-    .header-brand { display: flex; align-items: center; gap: 14px; }
-    .brand-logo-img { width: 44px; height: 44px; object-fit: contain; border-radius: 6px; background: white; }
-    .brand-logo-txt { width: 44px; height: 44px; background: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 11px; color: #0A5C30; letter-spacing: 1px; }
-    .brand-name { font-size: 20px; font-weight: 800; letter-spacing: 3px; }
-    .brand-sub { font-size: 11px; opacity: 0.7; margin-top: 2px; }
-    .header-status { text-align: right; }
-    .status-badge { display: inline-block; padding: 5px 14px; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; border: 1px solid rgba(255,255,255,0.5); }
-    .status-valide { background: rgba(255,255,255,0.15); }
-    .status-expire { background: rgba(192,57,43,0.6); }
-    .header-bottom { background: rgba(0,0,0,0.15); padding: 10px 28px; font-size: 11px; opacity: 0.8; }
-    .container { max-width: 680px; margin: 0 auto; padding: 24px 16px; }
-    .attest-box { background: white; border-radius: 6px; padding: 20px 24px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid #0A5C30; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-    .attest-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
-    .attest-numero { font-size: 24px; font-weight: 800; color: #0A5C30; letter-spacing: 3px; font-family: monospace; }
-    .attest-date { font-size: 11px; color: #aaa; margin-top: 4px; }
-    .attest-right { text-align: right; }
-    .attest-statut { font-size: 12px; font-weight: 700; letter-spacing: 1px; }
-    .attest-days { font-size: 11px; color: #888; margin-top: 4px; }
-    .validity-wrap { margin-bottom: 20px; }
-    .validity-labels { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 5px; }
-    .validity-center { font-weight: 700; }
-    .validity-track { background: #ddd; border-radius: 2px; height: 6px; overflow: hidden; }
-    .section { background: white; border-radius: 6px; margin-bottom: 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
-    .section-header { background: #F5F5F5; padding: 10px 18px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #0A5C30; border-bottom: 1px solid #E0E0E0; }
-    table { width: 100%; border-collapse: collapse; }
-    .td-label { padding: 10px 18px; color: #777; font-size: 13px; width: 45%; border-bottom: 1px solid #F5F5F5; }
-    .td-value { padding: 10px 18px; font-weight: 600; font-size: 13px; border-bottom: 1px solid #F5F5F5; text-align: right; }
-    .highlight { color: #0A5C30; font-weight: 700; }
-    tr:last-child .td-label, tr:last-child .td-value { border-bottom: none; }
-    .print-btn { display: block; width: 100%; padding: 13px; background: #0A5C30; color: white; border: none; border-radius: 5px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; margin-bottom: 14px; text-decoration: none; }
-    .legal { border: 1px solid #CFD8DC; border-left: 3px solid #0A5C30; background: white; border-radius: 4px; padding: 14px 16px; font-size: 11px; color: #546E7A; line-height: 1.8; margin-bottom: 14px; }
-    .legal-title { font-weight: 700; color: #37474F; margin-bottom: 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .footer { text-align: center; font-size: 10px; color: #aaa; padding: 12px 0 24px; border-top: 1px solid #E0E0E0; margin-top: 8px; }
-    .footer-logo { font-weight: 800; color: #0A5C30; letter-spacing: 2px; }
-    @media print {
-      body { background: white; }
-      .print-btn { display: none; }
-      .container { padding: 0; max-width: 100%; }
-      .section { box-shadow: none; border: 1px solid #ddd; }
-      .attest-box { box-shadow: none; border: 1px solid #ddd; border-top: 3px solid #0A5C30; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attestation SOURINI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#ECEFF1;color:#212121;font-size:14px}
+#loading{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:12px}
+#loading p{color:#888;font-size:13px}
+.spinner{width:40px;height:40px;border:3px solid #ddd;border-top-color:#0A5C30;border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.header{background:#0A5C30;color:white}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid rgba(255,255,255,0.15)}
+.header-brand{display:flex;align-items:center;gap:14px}
+.brand-icon{width:44px;height:44px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#0A5C30;letter-spacing:1px;flex-shrink:0}
+.brand-name{font-size:20px;font-weight:800;letter-spacing:3px}
+.brand-sub{font-size:11px;opacity:0.7;margin-top:2px}
+.header-status{text-align:right}
+.status-badge{display:inline-block;padding:5px 14px;border-radius:3px;font-size:11px;font-weight:700;letter-spacing:1.5px;border:1px solid rgba(255,255,255,0.5)}
+.status-valide{background:rgba(255,255,255,0.15)}
+.status-expire{background:rgba(192,57,43,0.6)}
+.header-bottom{background:rgba(0,0,0,0.15);padding:10px 28px;font-size:11px;opacity:0.8}
+.container{max-width:680px;margin:0 auto;padding:24px 16px}
+.attest-box{background:white;border-radius:6px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;border-top:3px solid #0A5C30;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.attest-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.attest-numero{font-size:22px;font-weight:800;color:#0A5C30;letter-spacing:2px;font-family:monospace}
+.attest-date{font-size:11px;color:#aaa;margin-top:4px}
+.attest-right{text-align:right}
+.attest-statut{font-size:12px;font-weight:700;letter-spacing:1px}
+.attest-days{font-size:11px;color:#888;margin-top:4px}
+.validity-wrap{margin-bottom:20px}
+.validity-labels{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:5px}
+.validity-center{font-weight:700}
+.validity-track{background:#ddd;border-radius:2px;height:6px;overflow:hidden}
+.section{background:white;border-radius:6px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.07)}
+.section-header{background:#F5F5F5;padding:10px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0A5C30;border-bottom:1px solid #E0E0E0}
+table{width:100%;border-collapse:collapse}
+.td-label{padding:10px 18px;color:#777;font-size:13px;width:45%;border-bottom:1px solid #F5F5F5}
+.td-value{padding:10px 18px;font-weight:600;font-size:13px;border-bottom:1px solid #F5F5F5;text-align:right}
+.highlight{color:#0A5C30;font-weight:700}
+tr:last-child .td-label,tr:last-child .td-value{border-bottom:none}
+.print-btn{display:block;width:100%;padding:13px;background:#0A5C30;color:white;border:none;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;margin-bottom:14px;text-decoration:none}
+.legal{border:1px solid #CFD8DC;border-left:3px solid #0A5C30;background:white;border-radius:4px;padding:14px 16px;font-size:11px;color:#546E7A;line-height:1.8;margin-bottom:14px}
+.legal-title{font-weight:700;color:#37474F;margin-bottom:5px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.footer{text-align:center;font-size:10px;color:#aaa;padding:12px 0 24px;border-top:1px solid #E0E0E0;margin-top:8px}
+.footer-logo{font-weight:800;color:#0A5C30;letter-spacing:2px}
+.err-box{display:flex;align-items:center;justify-content:center;min-height:100vh}
+.err-inner{background:white;border-radius:8px;padding:40px;text-align:center;max-width:400px;margin:20px}
+@media print{body{background:white}.print-btn{display:none}.container{padding:0;max-width:100%}.section{box-shadow:none;border:1px solid #ddd}.attest-box{box-shadow:none;border:1px solid #ddd;border-top:3px solid #0A5C30}}
+</style>
 </head>
 <body>
-
-<div id="loading">
-  <div class="spinner"></div>
-  <p>Chargement de l'attestation...</p>
-</div>
+<div id="loading"><div class="spinner"></div><p>Chargement de l'attestation...</p></div>
 <div id="app" style="display:none"></div>
-
 <script>
-var SUPABASE_URL = 'https://zbsnxhnqsbwhscrrpjyj.supabase.co';
-var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpic254aG5xc2J3aHNjcnJwanlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwOTc3MjgsImV4cCI6MjA4OTY3MzcyOH0.dgF2bokz33dalz6t2PpZAwvrM4M6cNxXXGIxgJFWvjk';
-var LOGO_URL = 'https://zizouhoussemeddine.github.io/sourini-attestation/sourini%20logo%20(2).PNG';
+var SB_URL = 'https://zbsnxhnqsbwhscrrpjyj.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpic254aG5xc2J3aHNjcnJwanlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwOTc3MjgsImV4cCI6MjA4OTY3MzcyOH0.dgF2bokz33dalz6t2PpZAwvrM4M6cNxXXGIxgJFWvjk';
 
-function fmt(d) {
-  var date = new Date(d);
-  var mois = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre'];
-  return date.getDate() + ' ' + mois[date.getMonth()] + ' ' + date.getFullYear();
+function show(html) {
+  document.getElementById('loading').style.display = 'none';
+  var a = document.getElementById('app');
+  a.style.display = 'block';
+  a.innerHTML = html;
 }
 
-function section(title, rows) {
-  var html = '<div class="section"><div class="section-header">' + title + '</div><table>';
-  for (var i = 0; i < rows.length; i++) {
-    var l = rows[i][0];
-    var v = rows[i][1] || '---';
-    var h = rows[i][2] ? ' highlight' : '';
-    html += '<tr><td class="td-label">' + l + '</td><td class="td-value' + h + '">' + v + '</td></tr>';
-  }
-  html += '</table></div>';
-  return html;
+function fmt(d) {
+  var dt = new Date(d);
+  var m = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre'];
+  return dt.getDate() + ' ' + m[dt.getMonth()] + ' ' + dt.getFullYear();
+}
+
+function row(l, v, h) {
+  return '<tr><td class="td-label">' + l + '</td><td class="td-value' + (h ? ' highlight' : '') + '">' + (v || '---') + '</td></tr>';
+}
+
+function sec(title, rows) {
+  var s = '<div class="section"><div class="section-header">' + title + '</div><table>';
+  for (var i = 0; i < rows.length; i++) s += row(rows[i][0], rows[i][1], rows[i][2]);
+  return s + '</table></div>';
 }
 
 function render(c) {
   var fin = new Date(c.date_fin);
   var jours = Math.ceil((fin - new Date()) / 86400000);
-  var valide = jours > 0;
-  var pct = Math.max(0, Math.min(100, (jours / 365) * 100)).toFixed(1);
+  var ok = jours > 0;
+  var pct = Math.max(0, Math.min(100, jours / 365 * 100)).toFixed(1);
   var comp = c.compagnies || {};
   var offre = c.offres || {};
   var veh = c.vehicules || {};
-  var prime = Number(c.montant_prime).toLocaleString('fr-DZ');
-  var couleur = valide ? '#0A5C30' : '#c0392b';
-  var statut = valide ? 'VALIDE' : 'EXPIRE';
-  var joursText = valide ? (jours + ' jours restants') : 'Expire';
-  var dateAujourd = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+  var prime = Number(c.montant_prime).toLocaleString('fr-FR');
+  var col = ok ? '#0A5C30' : '#c0392b';
+  var statut = ok ? 'VALIDE' : 'EXPIRE';
+  var jt = ok ? (jours + ' jours restants') : 'Expire';
+  var today = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+  var bar = ok ? 'linear-gradient(90deg,#0A5C30,#2E7D32)' : '#c0392b';
 
-  document.title = 'Attestation - ' + c.numero;
-
-  var logoHtml = '<img src="' + LOGO_URL + '" class="brand-logo-img" alt="SOURINI" onerror="this.outerHTML=\'<div class=\\\"brand-logo-txt\\\">SRN</div>\'">';
-
-  var html = '';
-
-  // HEADER
-  html += '<div class="header">';
-  html += '<div class="header-top">';
-  html += '<div class="header-brand">';
-  html += logoHtml;
-  html += '<div>';
-  html += '<div class="brand-name">SOURINI</div>';
-  html += '<div class="brand-sub">Plateforme d\'Assurance Numerique</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div class="header-status">';
-  html += '<div class="status-badge ' + (valide ? 'status-valide' : 'status-expire') + '">' + statut + '</div>';
-  html += '<div style="font-size:11px;opacity:0.7;margin-top:6px;">Attestation d\'assurance automobile</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div class="header-bottom">Republique Algerienne Democratique et Populaire &mdash; Document officiel &mdash; Genere le ' + dateAujourd + '</div>';
-  html += '</div>';
-
-  // CONTAINER
-  html += '<div class="container">';
-
-  // ATTEST BOX
-  html += '<div class="attest-box">';
-  html += '<div class="attest-left">';
-  html += '<div class="attest-label">Numero d\'attestation</div>';
-  html += '<div class="attest-numero">' + c.numero + '</div>';
-  html += '<div class="attest-date">Emis le ' + fmt(c.created_at || c.date_debut) + '</div>';
-  html += '</div>';
-  html += '<div class="attest-right">';
-  html += '<div class="attest-statut" style="color:' + couleur + '">' + statut + '</div>';
-  html += '<div class="attest-days">' + joursText + '</div>';
-  html += '</div>';
-  html += '</div>';
-
-  // VALIDITY BAR
-  html += '<div class="validity-wrap">';
-  html += '<div class="validity-labels">';
-  html += '<span>' + fmt(c.date_debut) + '</span>';
-  html += '<span class="validity-center" style="color:' + couleur + '">' + joursText + '</span>';
-  html += '<span>' + fmt(c.date_fin) + '</span>';
-  html += '</div>';
-  html += '<div class="validity-track"><div style="height:100%;border-radius:2px;background:' + (valide ? 'linear-gradient(90deg,#0A5C30,#2E7D32)' : '#c0392b') + ';width:' + pct + '%"></div></div>';
-  html += '</div>';
-
-  // SECTIONS
-  html += section('Compagnie d\'assurance', [
-    ['Compagnie', comp.nom],
-    ['Code', comp.code],
-    ['Formule', offre.libelle],
-    ['Type de couverture', offre.type_couverture],
-    ['Prime annuelle', prime + ' DZD', true],
-    ['Telephone', comp.telephone],
-    ['Email', comp.email]
+  var h = '';
+  h += '<div class="header">';
+  h += '<div class="header-top">';
+  h += '<div class="header-brand">';
+  h += '<div class="brand-icon">SRN</div>';
+  h += '<div><div class="brand-name">SOURINI</div><div class="brand-sub">Plateforme d\'Assurance Numerique</div></div>';
+  h += '</div>';
+  h += '<div class="header-status">';
+  h += '<div class="status-badge ' + (ok ? 'status-valide' : 'status-expire') + '">' + statut + '</div>';
+  h += '<div style="font-size:11px;opacity:0.7;margin-top:6px">Attestation d\'assurance automobile</div>';
+  h += '</div></div>';
+  h += '<div class="header-bottom">Republique Algerienne Democratique et Populaire &mdash; Document officiel &mdash; Genere le ' + today + '</div>';
+  h += '</div>';
+  h += '<div class="container">';
+  h += '<div class="attest-box">';
+  h += '<div><div class="attest-label">Numero d\'attestation</div>';
+  h += '<div class="attest-numero">' + c.numero + '</div>';
+  h += '<div class="attest-date">Emis le ' + fmt(c.created_at || c.date_debut) + '</div></div>';
+  h += '<div class="attest-right"><div class="attest-statut" style="color:' + col + '">' + statut + '</div>';
+  h += '<div class="attest-days">' + jt + '</div></div>';
+  h += '</div>';
+  h += '<div class="validity-wrap">';
+  h += '<div class="validity-labels"><span>' + fmt(c.date_debut) + '</span>';
+  h += '<span class="validity-center" style="color:' + col + '">' + jt + '</span>';
+  h += '<span>' + fmt(c.date_fin) + '</span></div>';
+  h += '<div class="validity-track"><div style="height:100%;border-radius:2px;background:' + bar + ';width:' + pct + '%"></div></div>';
+  h += '</div>';
+  h += sec('Compagnie d\'assurance', [
+    ['Compagnie', comp.nom], ['Code', comp.code], ['Formule', offre.libelle],
+    ['Type de couverture', offre.type_couverture], ['Prime annuelle', prime + ' DZD', true],
+    ['Telephone', comp.telephone], ['Email', comp.email]
   ]);
-
-  html += section('Vehicule assure', [
-    ['Marque', (veh.marque || '').toUpperCase()],
-    ['Modele', veh.modele],
-    ['Immatriculation', veh.immatriculation, true],
-    ['Annee', String(veh.annee || '---')],
-    ['Type', veh.type_vehicule],
-    ['N de chassis', veh.numero_chassis || '---']
+  h += sec('Vehicule assure', [
+    ['Marque', (veh.marque||'').toUpperCase()], ['Modele', veh.modele],
+    ['Immatriculation', veh.immatriculation, true], ['Annee', String(veh.annee||'---')],
+    ['Type', veh.type_vehicule], ['N de chassis', veh.numero_chassis||'---']
   ]);
-
-  html += section('Periode de couverture', [
-    ['Date de debut', fmt(c.date_debut)],
-    ['Date de fin', fmt(c.date_fin)],
-    ['Duree totale', '365 jours'],
-    ['Jours restants', valide ? (jours + ' jours') : 'Expire', valide],
+  h += sec('Periode de couverture', [
+    ['Date de debut', fmt(c.date_debut)], ['Date de fin', fmt(c.date_fin)],
+    ['Duree totale', '365 jours'], ['Jours restants', ok ? jours + ' jours' : 'Expire', ok],
     ['Statut', statut, true]
   ]);
-
-  html += '<a href="javascript:window.print()" class="print-btn">Imprimer / Enregistrer en PDF</a>';
-
-  html += '<div class="legal">';
-  html += '<div class="legal-title">Mention legale</div>';
-  html += 'Conformement a l\'ordonnance n95-07 du 25 janvier 1995 relative aux assurances, modifiee et completee par la loi n06-04. ';
-  html += 'Ce document constitue une attestation d\'assurance automobile valable sur l\'ensemble du territoire de la Republique Algerienne. ';
-  html += 'Toute falsification est passible de poursuites judiciaires.';
-  html += '</div>';
-
-  html += '<div class="footer">';
-  html += '<span class="footer-logo">SOURINI</span> &mdash; Verifie electroniquement &mdash; ' + dateAujourd + '<br>';
-  html += 'Ce document peut etre presente aux autorites comme justificatif d\'assurance valide.';
-  html += '</div>';
-
-  html += '</div>'; // end container
-
-  document.getElementById('loading').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  document.getElementById('app').innerHTML = html;
+  h += '<a href="javascript:void(0)" onclick="window.print()" class="print-btn">Imprimer / Enregistrer en PDF</a>';
+  h += '<div class="legal"><div class="legal-title">Mention legale</div>';
+  h += 'Conformement a l\'ordonnance n95-07 du 25 janvier 1995 relative aux assurances, modifiee et completee par la loi n06-04. ';
+  h += 'Ce document constitue une attestation d\'assurance automobile valable sur l\'ensemble du territoire de la Republique Algerienne. ';
+  h += 'Toute falsification est passible de poursuites judiciaires.</div>';
+  h += '<div class="footer"><span class="footer-logo">SOURINI</span> &mdash; Verifie electroniquement &mdash; ' + today + '<br>';
+  h += 'Ce document peut etre presente aux autorites comme justificatif d\'assurance valide.</div>';
+  h += '</div>';
+  show(h);
 }
 
-function showError(numero) {
-  document.getElementById('loading').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  document.getElementById('app').innerHTML =
-    '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh">' +
-      '<div style="background:white;border-radius:8px;padding:40px;text-align:center;max-width:400px;margin:20px">' +
-        '<div style="font-size:48px;margin-bottom:16px">🔍</div>' +
-        '<h2 style="color:#c0392b;margin-bottom:8px">Contrat introuvable</h2>' +
-        '<p style="color:#666">Le numero <strong>' + numero + '</strong> n\'existe pas ou a ete supprime.</p>' +
-      '</div>' +
-    '</div>';
+function showError(msg) {
+  show('<div class="err-box"><div class="err-inner"><div style="font-size:48px;margin-bottom:16px">&#128269;</div><h2 style="color:#c0392b;margin-bottom:8px">Contrat introuvable</h2><p style="color:#666">' + msg + '</p></div></div>');
 }
 
-async function load() {
+function load() {
   var params = new URLSearchParams(window.location.search);
-  var numero = params.get('n');
-
-  if (!numero) {
-    showError('Numero manquant dans le QR code');
-    return;
-  }
-
-  try {
-    var url = SUPABASE_URL + '/rest/v1/contrats' +
-      '?numero=eq.' + encodeURIComponent(numero) +
-      '&select=*,compagnies:compagnie_id(nom,code,telephone,email),offres:offre_id(libelle,type_couverture),vehicules:vehicule_id(marque,modele,immatriculation,annee,type_vehicule,numero_chassis)';
-
-    var res = await fetch(url, {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'Accept': 'application/json'
-      }
+  var n = params.get('n');
+  if (!n) { showError('Numero manquant dans le QR code'); return; }
+  var url = SB_URL + '/rest/v1/contrats?numero=eq.' + encodeURIComponent(n) +
+    '&select=*,compagnies:compagnie_id(nom,code,telephone,email),offres:offre_id(libelle,type_couverture),vehicules:vehicule_id(marque,modele,immatriculation,annee,type_vehicule,numero_chassis)';
+  fetch(url, {headers: {'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Accept': 'application/json'}})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data || data.length === 0) { showError('Le numero <strong>' + n + '</strong> n\'existe pas.'); return; }
+      render(data[0]);
+    })
+    .catch(function() {
+      showError('Erreur de connexion. Verifiez votre connexion internet.');
     });
-
-    if (!res.ok) {
-      throw new Error('HTTP ' + res.status);
-    }
-
-    var data = await res.json();
-
-    if (!data || data.length === 0) {
-      showError(numero);
-      return;
-    }
-
-    render(data[0]);
-
-  } catch(e) {
-    console.error('Erreur load:', e);
-    showError(numero || 'inconnu');
-  }
 }
 
 load();
